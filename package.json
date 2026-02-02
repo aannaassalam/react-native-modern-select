@@ -1,0 +1,44 @@
+{
+    "name": "react-native-modern-select",
+    "version": "0.1.0",
+    "main": "dist/index.mjs",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "prepublishOnly": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aannaassalam/react-native-modern-select.git"
+    },
+    "homepage": "https://github.com/aannaassalam/react-native-modern-select",
+    "bugs": {
+        "url": "https://github.com/aannaassalam/react-native-modern-select/issues"
+    },
+    "peerDependencies": {
+        "@gorhom/bottom-sheet": ">=4.6.0",
+        "react": ">=18",
+        "react-native": ">=0.72",
+        "react-native-gesture-handler": ">=2.12.0",
+        "react-native-reanimated": ">=3.6.0",
+        "react-native-safe-area-context": ">=4.0.0"
+    },
+    "devDependencies": {
+        "@gorhom/bottom-sheet": "^4.6.0",
+        "@types/react": "^19.2.10",
+        "react": "^19.2.1",
+        "react-native": "0.83.x",
+        "react-native-gesture-handler": "^2.12.0",
+        "react-native-reanimated": "^3.6.0",
+        "react-native-safe-area-context": ">=4.0.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "react-native-select": "file:react-native-select-0.1.0.tgz"
+    }
+}
