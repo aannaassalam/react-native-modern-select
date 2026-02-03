@@ -1,4 +1,5 @@
-import BottomSheet, {
+import {
+    BottomSheetModal,
     BottomSheetBackdrop,
     BottomSheetFlatList,
     BottomSheetFooter,
@@ -86,18 +87,18 @@ export function Select<T>(props: SelectProps<T>) {
         confirmText,
     } = props;
 
-    const bottomSheetRef = useRef<BottomSheet>(null);
+    const bottomSheetRef = useRef<BottomSheetModal>(null);
     const insets = useSafeAreaInsets();
 
     const [search, setSearch] = useState("");
 
     const open = useCallback(() => {
         if (disabled) return;
-        bottomSheetRef.current?.expand();
+        bottomSheetRef.current?.present();
     }, [disabled]);
 
     const close = useCallback(() => {
-        bottomSheetRef.current?.close();
+        bottomSheetRef.current?.dismiss();
         setSearch("");
     }, []);
 
@@ -245,13 +246,13 @@ export function Select<T>(props: SelectProps<T>) {
                 )}
             </Pressable>
 
-            <BottomSheet
+            <BottomSheetModal
                 ref={bottomSheetRef}
-                index={-1}
                 snapPoints={snapPoints}
                 enablePanDownToClose
                 footerComponent={renderFooter}
-                onClose={Keyboard.dismiss}
+                onDismiss={Keyboard.dismiss}
+                enableDismissOnClose
                 topInset={insets.top}
                 enableDynamicSizing={false}
                 backdropComponent={(p) => (
@@ -269,7 +270,7 @@ export function Select<T>(props: SelectProps<T>) {
                     keyExtractor={(item) => getKey(item)}
                     renderItem={renderItem}
                     keyboardShouldPersistTaps="handled"
-                    keyboardDismissMode="interactive"
+                    keyboardDismissMode="on-drag"
                     enableFooterMarginAdjustment={multiple}
                     contentContainerStyle={[
                         styles.listContent,
@@ -291,7 +292,7 @@ export function Select<T>(props: SelectProps<T>) {
                         ) : null
                     }
                 />
-            </BottomSheet>
+            </BottomSheetModal>
         </>
     );
 }
