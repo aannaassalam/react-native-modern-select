@@ -1,9 +1,9 @@
-# react-native-select
+# react-native-modern-select
 
 A fully type-safe, headless-friendly Select and Multi-Select component for React Native, powered by
 [@gorhom/bottom-sheet](https://github.com/gorhom/react-native-bottom-sheet).
 
-`react-native-select` is designed for real production apps and internal design systems where:
+`react-native-modern-select` is designed for real production apps and internal design systems where:
 
 - the data shape is not fixed
 - strong typing matters
@@ -31,13 +31,13 @@ A fully type-safe, headless-friendly Select and Multi-Select component for React
 ## 📦 Installation
 
 ```bash
-npm install react-native-select
+npm install react-native-modern-select
 ```
 
 or
 
 ```bash
-yarn add react-native-select
+yarn add react-native-modern-select
 ```
 
 ---
@@ -100,7 +100,7 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 ## 🚀 Basic usage – single select
 
 ```tsx
-import { Select } from "react-native-select";
+import { Select } from "react-native-modern-select";
 
 type User = {
     id: string;
@@ -109,7 +109,7 @@ type User = {
 
 const [user, setUser] = useState<User | null>(null);
 
-<Select<User>
+<Select
     value={user}
     options={users}
     onChange={setUser}
@@ -125,7 +125,7 @@ const [user, setUser] = useState<User | null>(null);
 ```tsx
 const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
 
-<Select<User>
+<Select
     multiple
     value={selectedUsers}
     options={users}
@@ -167,6 +167,36 @@ TypeScript will enforce the correct contract automatically.
 
 ---
 
+### ⚠️ Type inference when `value` is `null`
+
+In most cases, you **do not need to explicitly pass the generic type** to `Select`.
+
+TypeScript automatically infers the item type from the `options` (and/or `value`) prop:
+
+```tsx
+<Select
+  options={users}
+  value={selectedUser}
+  ...
+/>
+```
+
+However, if you use `null` as the value and your `options` are not strongly typed (for example, inline array literals or an empty array), TypeScript may not be able to correctly infer the generic type.
+
+In that case, pass the type explicitly to the component:
+
+```tsx
+<Select
+  options={users}
+  value={null}
+  ...
+/>
+```
+
+This helps TypeScript resolve the correct type and prevents inference-related errors.
+
+---
+
 ## 🔎 Search
 
 Search is enabled by default.
@@ -186,7 +216,7 @@ Disable search:
 ## 🎨 Custom input UI
 
 ```tsx
-<Select<User>
+<Select
   ...
   renderInput={(label) => (
     <MyCustomInput value={label ?? "Select user"} />
@@ -201,7 +231,7 @@ When `renderInput` is provided, the default input UI is not rendered.
 ## 🧩 Custom option row
 
 ```tsx
-<Select<User>
+<Select
   ...
   renderOption={(item, selected) => (
     <View style={{ flexDirection: "row" }}>
@@ -221,7 +251,7 @@ A default footer button is shown for multi-select.
 You can fully replace it:
 
 ```tsx
-<Select<User>
+<Select
   multiple
   ...
   renderFooter={({ selected, confirm }) => (
@@ -248,7 +278,7 @@ Footer render context:
 ## 🎨 Styling the default UI
 
 ```tsx
-<Select<User>
+<Select
   ...
   containerStyle={{ marginTop: 12 }}
   inputStyle={{ borderColor: "#4f46e5" }}
@@ -374,7 +404,7 @@ npm run build
 To test the package inside a React Native app:
 
 ```bash
-npm install ../react-native-select
+npm install ../react-native-modern-select
 ```
 
 (Using a local file install is recommended instead of `npm link` for React Native projects.)
